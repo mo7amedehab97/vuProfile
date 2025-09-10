@@ -49,48 +49,118 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Header Background Change on Scroll
+// Enhanced Header Background Change on Scroll with smooth animations
 const header = document.querySelector('.header');
 let lastScrollY = window.scrollY;
+let ticking = false;
 
 function updateHeader() {
-    const currentScrollY = window.scrollY;
+    const scrollY = window.scrollY;
     
-    if (currentScrollY > 50) {
+    if (scrollY > 50) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
     }
     
-    lastScrollY = currentScrollY;
+    lastScrollY = scrollY;
+    ticking = false;
 }
 
-window.addEventListener('scroll', updateHeader, { passive: true });
+function requestTick() {
+    if (!ticking) {
+        requestAnimationFrame(updateHeader);
+        ticking = true;
+    }
+}
 
-// Active Navigation Link Highlighting
-const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', requestTick, { passive: true });
+
+// Enhanced Active Navigation Link Highlighting with smooth transitions
 const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section[id]');
 
 function highlightActiveNavLink() {
-    const scrollY = window.pageYOffset;
+    let current = '';
+    const scrollY = window.scrollY;
     
     sections.forEach(section => {
-        const sectionHeight = section.offsetHeight;
         const sectionTop = section.offsetTop - 100;
-        const sectionId = section.getAttribute('id');
+        const sectionHeight = section.offsetHeight;
         
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${sectionId}`) {
-                    link.classList.add('active');
-                }
-            });
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+            current = section.getAttribute('id');
+        }
+    });
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').substring(1) === current) {
+            link.classList.add('active');
         }
     });
 }
 
+// Smooth scroll with enhanced easing
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+            const headerOffset = 100;
+            const elementPosition = targetSection.offsetTop;
+            const offsetPosition = elementPosition - headerOffset;
+            
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Initialize on page load
 window.addEventListener('scroll', highlightActiveNavLink, { passive: true });
+window.addEventListener('load', highlightActiveNavLink);
+
+// Add stagger animation to nav menu items
+document.addEventListener('DOMContentLoaded', () => {
+    const navMenuItems = document.querySelectorAll('.nav-menu li');
+    
+    navMenuItems.forEach((item, index) => {
+        item.style.animationDelay = `${0.1 * index + 0.5}s`;
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(-20px)';
+        item.style.animation = 'navMenuFadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+    });
+});
+
+// Add mouse enter/leave effects for enhanced interactivity
+navLinks.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+        link.style.transform = 'translateY(-2px) scale(1.02)';
+    });
+    
+    link.addEventListener('mouseleave', () => {
+        if (!link.classList.contains('active')) {
+            link.style.transform = 'translateY(0) scale(1)';
+        }
+    });
+});
+
+// Enhanced availability badge interaction
+const availabilityBadge = document.querySelector('.nav-right');
+if (availabilityBadge) {
+    availabilityBadge.addEventListener('mouseenter', () => {
+        availabilityBadge.style.transform = 'translateY(-3px) scale(1.05)';
+    });
+    
+    availabilityBadge.addEventListener('mouseleave', () => {
+        availabilityBadge.style.transform = 'translateY(0) scale(1)';
+    });
+}
 
 // Button Click Handlers
 const ctaButton = document.querySelector('.cta-button');
@@ -878,4 +948,282 @@ document.querySelectorAll('.footer-link').forEach(link => {
         // You can add actual navigation logic here
         console.log(`Footer link clicked: ${this.textContent}`);
     });
+});
+
+// Enhanced Banner Animation Controller
+class BannerAnimations {
+    constructor() {
+        this.bannerContainer = document.querySelector('.banner-container');
+        this.bannerImage = document.querySelector('.banner-image');
+        this.bannerContent = document.querySelector('.banner-content');
+        this.topRatedItems = document.querySelectorAll('.top-rated .item');
+        this.bannerTitle = document.querySelector('.banner-content h1');
+        this.bannerDescription = document.querySelector('.banner-container p');
+        
+        this.animationsStarted = false;
+        this.mousePosition = { x: 0, y: 0 };
+        
+        if (this.bannerContainer) {
+            this.init();
+        }
+    }
+    
+    init() {
+        // Initialize banner animations
+        this.setupBannerObserver();
+        this.setupMouseFollowEffect();
+        this.setupParticleEffect();
+        this.setupInteractiveHovers();
+        
+        console.log('Banner animations initialized');
+    }
+    
+    setupBannerObserver() {
+        const bannerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !this.animationsStarted) {
+                    this.animationsStarted = true;
+                    this.startBannerSequence();
+                    // Disconnect after first trigger
+                    bannerObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.3,
+            rootMargin: '0px 0px -100px 0px'
+        });
+        
+        bannerObserver.observe(this.bannerContainer);
+    }
+    
+    startBannerSequence() {
+        console.log('Starting banner animation sequence');
+        
+        // Start particle effect after a delay
+        setTimeout(() => {
+            this.bannerContainer.classList.add('animate-particles');
+        }, 3000);
+        
+        // Add subtle pulse effect to title after animations complete
+        setTimeout(() => {
+            this.addTitlePulseEffect();
+        }, 4000);
+    }
+    
+    setupMouseFollowEffect() {
+        if (!this.bannerImage) return;
+        
+        document.addEventListener('mousemove', (e) => {
+            this.mousePosition.x = e.clientX;
+            this.mousePosition.y = e.clientY;
+            
+            // Only apply effect when mouse is over banner area
+            const bannerRect = this.bannerContainer.getBoundingClientRect();
+            const isOverBanner = (
+                e.clientX >= bannerRect.left &&
+                e.clientX <= bannerRect.right &&
+                e.clientY >= bannerRect.top &&
+                e.clientY <= bannerRect.bottom
+            );
+            
+            if (isOverBanner) {
+                this.updateImagePosition(e);
+            }
+        });
+    }
+    
+    updateImagePosition(event) {
+        const rect = this.bannerContainer.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        // Calculate offset from center (reduced intensity for subtlety)
+        const offsetX = (event.clientX - centerX) * 0.02;
+        const offsetY = (event.clientY - centerY) * 0.02;
+        
+        // Apply transform with smooth transition
+        this.bannerImage.style.transform = `translate(calc(-50% + ${offsetX}px), calc(50% + ${offsetY}px))`;
+        
+        // Add mouse-follow class for enhanced styling
+        this.bannerImage.classList.add('mouse-follow');
+        
+        // Remove class after mouse stops moving
+        clearTimeout(this.mouseTimeout);
+        this.mouseTimeout = setTimeout(() => {
+            this.bannerImage.classList.remove('mouse-follow');
+            this.bannerImage.style.transform = 'translate(-50%, 50%)';
+        }, 2000);
+    }
+    
+    setupParticleEffect() {
+        // Particle effect is handled by CSS, but we can control when it starts
+        console.log('Particle effect setup complete');
+    }
+    
+    setupInteractiveHovers() {
+        // Enhanced hover effects for top-rated items
+        this.topRatedItems.forEach((item, index) => {
+            item.addEventListener('mouseenter', () => {
+                // Add ripple effect
+                this.createRippleEffect(item);
+                
+                // Slight rotation effect on other items
+                this.topRatedItems.forEach((otherItem, otherIndex) => {
+                    if (otherIndex !== index) {
+                        otherItem.style.transform = 'translateY(-5px) rotate(2deg) scale(0.95)';
+                        otherItem.style.opacity = '0.7';
+                    }
+                });
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                // Reset other items
+                this.topRatedItems.forEach((otherItem, otherIndex) => {
+                    if (otherIndex !== index) {
+                        otherItem.style.transform = '';
+                        otherItem.style.opacity = '';
+                    }
+                });
+            });
+        });
+        
+        // Banner image interactive effects
+        if (this.bannerImage) {
+            this.bannerImage.addEventListener('click', () => {
+                this.addClickEffect();
+            });
+        }
+    }
+    
+    createRippleEffect(element) {
+        const ripple = document.createElement('div');
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.background = 'rgba(244, 240, 236, 0.3)';
+        ripple.style.transform = 'scale(0)';
+        ripple.style.animation = 'bannerRipple 0.6s linear';
+        ripple.style.left = '50%';
+        ripple.style.top = '50%';
+        ripple.style.width = '20px';
+        ripple.style.height = '20px';
+        ripple.style.marginLeft = '-10px';
+        ripple.style.marginTop = '-10px';
+        ripple.style.pointerEvents = 'none';
+        ripple.style.zIndex = '10';
+        
+        element.style.position = 'relative';
+        element.appendChild(ripple);
+        
+        setTimeout(() => {
+            if (ripple.parentNode) {
+                ripple.parentNode.removeChild(ripple);
+            }
+        }, 600);
+    }
+    
+    addClickEffect() {
+        // Add a fun click effect to banner image
+        const originalTransform = this.bannerImage.style.transform;
+        this.bannerImage.style.transform = 'translate(-50%, 50%) scale(0.95) rotate(5deg)';
+        
+        setTimeout(() => {
+            this.bannerImage.style.transform = originalTransform || 'translate(-50%, 50%)';
+        }, 200);
+        
+        // Create expanding circle effect
+        const circle = document.createElement('div');
+        circle.style.position = 'absolute';
+        circle.style.left = '50%';
+        circle.style.top = '50%';
+        circle.style.width = '10px';
+        circle.style.height = '10px';
+        circle.style.borderRadius = '50%';
+        circle.style.background = 'rgba(244, 240, 236, 0.2)';
+        circle.style.transform = 'translate(-50%, -50%) scale(0)';
+        circle.style.animation = 'bannerClickExpand 0.8s ease-out';
+        circle.style.pointerEvents = 'none';
+        circle.style.zIndex = '5';
+        
+        this.bannerImage.appendChild(circle);
+        
+        setTimeout(() => {
+            if (circle.parentNode) {
+                circle.parentNode.removeChild(circle);
+            }
+        }, 800);
+    }
+    
+    addTitlePulseEffect() {
+        if (this.bannerTitle) {
+            this.bannerTitle.addEventListener('mouseenter', () => {
+                this.bannerTitle.style.transform = 'translateY(0px) scale(1.02)';
+                this.bannerTitle.style.textShadow = '0 0 20px rgba(244, 240, 236, 0.5)';
+            });
+            
+            this.bannerTitle.addEventListener('mouseleave', () => {
+                this.bannerTitle.style.transform = 'translateY(0px) scale(1)';
+                this.bannerTitle.style.textShadow = 'none';
+            });
+        }
+    }
+    
+    // Typewriter effect for banner text (optional enhancement)
+    startTypewriterEffect(element, text, speed = 50) {
+        element.textContent = '';
+        element.style.opacity = '1';
+        
+        let i = 0;
+        const typeWriter = () => {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+        };
+        
+        typeWriter();
+    }
+}
+
+// Add banner-specific CSS animations
+const bannerAnimationStyles = document.createElement('style');
+bannerAnimationStyles.textContent = `
+    @keyframes bannerRipple {
+        to {
+            transform: scale(8);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes bannerClickExpand {
+        0% {
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translate(-50%, -50%) scale(20);
+            opacity: 0;
+        }
+    }
+    
+    /* Smooth transitions for interactive elements */
+    .banner-image {
+        cursor: pointer;
+    }
+    
+    .top-rated .item {
+        cursor: pointer;
+    }
+    
+    .banner-content h1 {
+        cursor: default;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+`;
+document.head.appendChild(bannerAnimationStyles);
+
+// Initialize banner animations when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    const bannerAnimations = new BannerAnimations();
+    console.log('Banner animation system initialized');
 });
