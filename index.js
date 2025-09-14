@@ -289,20 +289,20 @@ function animateCounter(element, target, duration = 2000) {
 const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            const spans = entry.target.querySelectorAll('span');
+            const h2Elements = entry.target.querySelectorAll('h2');
             
-            spans.forEach((span, index) => {
-                const text = span.textContent.trim();
+            h2Elements.forEach((h2, index) => {
+                const text = h2.textContent.trim();
                 const number = parseInt(text.replace('+', ''));
                 
                 if (!isNaN(number)) {
                     // Clear the initial text
-                    span.textContent = '+0';
+                    h2.textContent = '+0';
                     
                     // Start animation with delay for staggered effect
                     setTimeout(() => {
-                        animateCounter(span, number, 2000);
-                    }, index * 200 + 1800); // Sync with CSS animation delay
+                        animateCounter(h2, number, 2000);
+                    }, index * 200 + 500); // Reduced delay for better timing
                 }
             });
             
@@ -325,20 +325,19 @@ if (statsContainer) {
 const statItems = document.querySelectorAll('.about-container-stats div');
 statItems.forEach(item => {
     item.addEventListener('mouseenter', function() {
-        const span = this.querySelector('span');
-        if (span) {
-            span.style.transform = 'scale(1.05) rotate(2deg)';
-            span.style.color = '#14A800';
-            span.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        const h2 = this.querySelector('h2');
+        if (h2) {
+            h2.style.transform = 'scale(1.05) rotate(2deg)';
+            h2.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
         }
     });
     
     item.addEventListener('mouseleave', function() {
-        const span = this.querySelector('span');
-        if (span) {
-            span.style.transform = 'scale(1) rotate(0deg)';
-            span.style.color = '#2B2B2B';
-            span.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        const h2 = this.querySelector('h2');
+        if (h2) {
+            h2.style.transform = 'scale(1) rotate(0deg)';
+            h2.style.color = '#2B2B2B';
+            h2.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
         }
     });
 });
@@ -559,275 +558,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const fullScreenCarousel = new FullScreenCarousel();
 });
 
-// Footer Animation Controller
-class FooterAnimations {
-    constructor() {
-        this.footer = document.querySelector('.footer');
-        this.footerTagline = document.querySelector('.footer-tagline h2');
-        this.footerCta = document.querySelector('.footer-cta');
-        this.footerRight = document.querySelector('.footer-right');
-        this.footerLinks = document.querySelectorAll('.footer-link');
-        this.footerBottom = document.querySelector('.footer-bottom');
-        this.footerBrand = document.querySelector('.footer-brand h1');
-        this.footerCopyright = document.querySelector('.footer-copyright p');
-        
-        this.animationsTriggered = false;
-        
-        if (this.footer) {
-            this.init();
-        }
-    }
-    
-    init() {
-        // Set up intersection observer for footer
-        this.setupFooterObserver();
-        console.log('Footer animations initialized');
-    }
-    
-    setupFooterObserver() {
-        const footerObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !this.animationsTriggered) {
-                    this.animationsTriggered = true;
-                    this.triggerFooterAnimations();
-                    // Disconnect after first trigger to prevent re-animations
-                    footerObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-        
-        footerObserver.observe(this.footer);
-    }
-    
-    triggerFooterAnimations() {
-        // Start with footer slide up
-        this.footer.classList.add('animate-footer');
-        
-        // Stagger the animations with delays
-        setTimeout(() => this.startTypewriterEffect(), 600);
-        setTimeout(() => this.animateCta(), 1200);
-        setTimeout(() => this.animateRightSection(), 1800);
-        setTimeout(() => this.animateLinks(), 2200);
-        setTimeout(() => this.animateBottom(), 2800);
-        setTimeout(() => this.animateBrand(), 3200);
-        setTimeout(() => this.animateCopyright(), 3800);
-        
-        console.log('Footer animations sequence started');
-    }
-    
-    startTypewriterEffect() {
-        if (this.footerTagline) {
-            // Ensure element is visible first
-            this.footerTagline.style.opacity = '1';
-            this.footerTagline.style.transform = 'translateY(0)';
-            
-            // Add typewriter classes
-            this.footerTagline.classList.add('typewriter-ready');
-            
-            // After animation completes, switch to complete class
-            setTimeout(() => {
-                this.footerTagline.classList.remove('typewriter-ready');
-                this.footerTagline.classList.add('typewriter-complete');
-                console.log('Typewriter effect completed');
-            }, 4000);
-            
-            console.log('Typewriter effect started');
-        }
-    }
-    
-    animateCta() {
-        if (this.footerCta) {
-            this.footerCta.classList.add('animate-cta');
-            console.log('CTA animation started');
-        }
-    }
-    
-    animateRightSection() {
-        if (this.footerRight) {
-            this.footerRight.classList.add('animate-right');
-            console.log('Right section animation started');
-        }
-    }
-    
-    animateLinks() {
-        this.footerLinks.forEach((link, index) => {
-            setTimeout(() => {
-                link.classList.add('animate-link');
-                console.log(`Link ${index + 1} animation started`);
-            }, index * 200);
-        });
-    }
-    
-    animateBottom() {
-        if (this.footerBottom) {
-            this.footerBottom.classList.add('animate-bottom');
-            console.log('Bottom section animation started');
-        }
-    }
-    
-    animateBrand() {
-        if (this.footerBrand) {
-            this.footerBrand.classList.add('animate-brand');
-            console.log('Brand animation started');
-        }
-    }
-    
-    animateCopyright() {
-        if (this.footerCopyright) {
-            this.footerCopyright.classList.add('animate-copyright');
-            console.log('Copyright animation started');
-        }
-    }
-}
-
-// Enhanced Typewriter Effect with more control
-class TypewriterEffect {
-    constructor(element, text, options = {}) {
-        this.element = element;
-        this.text = text;
-        this.options = {
-            speed: options.speed || 100,
-            deleteSpeed: options.deleteSpeed || 50,
-            pauseTime: options.pauseTime || 2000,
-            cursor: options.cursor || '|',
-            cursorColor: options.cursorColor || '#CFDA5B',
-            loop: options.loop || false,
-            ...options
-        };
-        
-        this.currentText = '';
-        this.currentIndex = 0;
-        this.isDeleting = false;
-        this.isPaused = false;
-    }
-    
-    start() {
-        this.element.style.borderRight = `3px solid ${this.options.cursorColor}`;
-        this.type();
-    }
-    
-    type() {
-        const fullText = this.text;
-        
-        if (this.isDeleting) {
-            this.currentText = fullText.substring(0, this.currentText.length - 1);
-        } else {
-            this.currentText = fullText.substring(0, this.currentIndex + 1);
-            this.currentIndex++;
-        }
-        
-        this.element.textContent = this.currentText;
-        
-        let typeSpeed = this.options.speed;
-        
-        if (this.isDeleting) {
-            typeSpeed = this.options.deleteSpeed;
-        }
-        
-        if (!this.isDeleting && this.currentText === fullText) {
-            if (this.options.loop) {
-                typeSpeed = this.options.pauseTime;
-                this.isDeleting = true;
-            } else {
-                // Remove cursor when done (if not looping)
-                setTimeout(() => {
-                    this.element.style.borderRight = 'none';
-                }, 1000);
-                return;
-            }
-        } else if (this.isDeleting && this.currentText === '') {
-            this.isDeleting = false;
-            this.currentIndex = 0;
-            typeSpeed = 500;
-        }
-        
-        setTimeout(() => this.type(), typeSpeed);
-    }
-}
-
-// Advanced Footer Hover Effects
-class FooterHoverEffects {
-    constructor() {
-        this.footerLinks = document.querySelectorAll('.footer-link');
-        this.footerBrand = document.querySelector('.footer-brand h1');
-        
-        this.init();
-    }
-    
-    init() {
-        this.setupLinkHovers();
-        this.setupBrandHover();
-        console.log('Footer hover effects initialized');
-    }
-    
-    setupLinkHovers() {
-        this.footerLinks.forEach(link => {
-            link.addEventListener('mouseenter', (e) => {
-                this.createRippleEffect(e.target, e);
-                this.addGlowEffect(e.target);
-            });
-            
-            link.addEventListener('mouseleave', (e) => {
-                this.removeGlowEffect(e.target);
-            });
-        });
-    }
-    
-    setupBrandHover() {
-        if (this.footerBrand) {
-            this.footerBrand.addEventListener('mouseenter', () => {
-                this.footerBrand.style.transform = 'scale(1.05) rotate(2deg)';
-                this.footerBrand.style.filter = 'drop-shadow(0 0 40px rgba(207, 218, 91, 0.8))';
-            });
-            
-            this.footerBrand.addEventListener('mouseleave', () => {
-                this.footerBrand.style.transform = 'scale(1) rotate(0deg)';
-                this.footerBrand.style.filter = 'drop-shadow(0 0 30px rgba(207, 218, 91, 0.6))';
-            });
-        }
-    }
-    
-    createRippleEffect(element, event) {
-        const rect = element.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        
-        const ripple = document.createElement('span');
-        ripple.style.position = 'absolute';
-        ripple.style.borderRadius = '50%';
-        ripple.style.background = 'rgba(207, 218, 91, 0.3)';
-        ripple.style.transform = 'scale(0)';
-        ripple.style.animation = 'ripple 0.6s linear';
-        ripple.style.left = `${x - 10}px`;
-        ripple.style.top = `${y - 10}px`;
-        ripple.style.width = '20px';
-        ripple.style.height = '20px';
-        ripple.style.pointerEvents = 'none';
-        ripple.style.zIndex = '1000';
-        
-        element.style.position = 'relative';
-        element.appendChild(ripple);
-        
-        setTimeout(() => {
-            if (ripple.parentNode) {
-                ripple.parentNode.removeChild(ripple);
-            }
-        }, 600);
-    }
-    
-    addGlowEffect(element) {
-        element.style.boxShadow = '0 0 20px rgba(207, 218, 91, 0.5)';
-        element.style.borderRadius = '8px';
-    }
-    
-    removeGlowEffect(element) {
-        element.style.boxShadow = 'none';
-        element.style.borderRadius = '0';
-    }
-}
 
 // Add ripple animation to CSS dynamically
 const rippleStyle = document.createElement('style');
@@ -841,114 +571,7 @@ rippleStyle.textContent = `
 `;
 document.head.appendChild(rippleStyle);
 
-// Footer Particle System
-class FooterParticles {
-    constructor() {
-        this.footer = document.querySelector('.footer');
-        this.particles = [];
-        this.animationId = null;
-        
-        if (this.footer) {
-            this.init();
-        }
-    }
-    
-    init() {
-        this.createParticles();
-        this.animate();
-        console.log('Footer particle system initialized');
-    }
-    
-    createParticles() {
-        for (let i = 0; i < 15; i++) {
-            const particle = {
-                x: Math.random() * this.footer.offsetWidth,
-                y: Math.random() * this.footer.offsetHeight,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5,
-                size: Math.random() * 3 + 1,
-                opacity: Math.random() * 0.5 + 0.1,
-                element: this.createParticleElement()
-            };
-            
-            this.particles.push(particle);
-            this.footer.appendChild(particle.element);
-        }
-    }
-    
-    createParticleElement() {
-        const particle = document.createElement('div');
-        particle.style.position = 'absolute';
-        particle.style.borderRadius = '50%';
-        particle.style.background = 'rgba(207, 218, 91, 0.3)';
-        particle.style.pointerEvents = 'none';
-        particle.style.zIndex = '1';
-        return particle;
-    }
-    
-    animate() {
-        this.particles.forEach(particle => {
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-            
-            // Bounce off edges
-            if (particle.x <= 0 || particle.x >= this.footer.offsetWidth) {
-                particle.vx *= -1;
-            }
-            if (particle.y <= 0 || particle.y >= this.footer.offsetHeight) {
-                particle.vy *= -1;
-            }
-            
-            // Update element position
-            particle.element.style.left = `${particle.x}px`;
-            particle.element.style.top = `${particle.y}px`;
-            particle.element.style.width = `${particle.size}px`;
-            particle.element.style.height = `${particle.size}px`;
-            particle.element.style.opacity = particle.opacity;
-        });
-        
-        this.animationId = requestAnimationFrame(() => this.animate());
-    }
-    
-    destroy() {
-        if (this.animationId) {
-            cancelAnimationFrame(this.animationId);
-        }
-        this.particles.forEach(particle => {
-            if (particle.element.parentNode) {
-                particle.element.parentNode.removeChild(particle.element);
-            }
-        });
-    }
-}
 
-// Initialize all footer animations
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize footer animations
-    const footerAnimations = new FooterAnimations();
-    
-    // Initialize hover effects
-    const footerHoverEffects = new FooterHoverEffects();
-    
-    // Initialize particle system (optional - can be disabled for performance)
-    // const footerParticles = new FooterParticles();
-    
-    console.log('All footer animation systems initialized');
-});
-
-// Add smooth scroll behavior to footer links
-document.querySelectorAll('.footer-link').forEach(link => {
-    link.addEventListener('click', function(e) {
-        // Add click animation
-        this.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-            this.style.transform = '';
-        }, 150);
-        
-        // You can add actual navigation logic here
-        console.log(`Footer link clicked: ${this.textContent}`);
-    });
-});
 
 // Enhanced Banner Animation Controller
 class BannerAnimations {
@@ -971,9 +594,6 @@ class BannerAnimations {
     init() {
         // Initialize banner animations
         this.setupBannerObserver();
-        this.setupMouseFollowEffect();
-        this.setupParticleEffect();
-        this.setupInteractiveHovers();
         
         console.log('Banner animations initialized');
     }
@@ -998,11 +618,6 @@ class BannerAnimations {
     
     startBannerSequence() {
         console.log('Starting banner animation sequence');
-        
-        // Start particle effect after a delay
-        setTimeout(() => {
-            this.bannerContainer.classList.add('animate-particles');
-        }, 3000);
         
         // Add subtle pulse effect to title after animations complete
         setTimeout(() => {
@@ -1167,22 +782,6 @@ class BannerAnimations {
         }
     }
     
-    // Typewriter effect for banner text (optional enhancement)
-    startTypewriterEffect(element, text, speed = 50) {
-        element.textContent = '';
-        element.style.opacity = '1';
-        
-        let i = 0;
-        const typeWriter = () => {
-            if (i < text.length) {
-                element.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, speed);
-            }
-        };
-        
-        typeWriter();
-    }
 }
 
 // Add banner-specific CSS animations
@@ -1226,4 +825,30 @@ document.head.appendChild(bannerAnimationStyles);
 document.addEventListener('DOMContentLoaded', function() {
     const bannerAnimations = new BannerAnimations();
     console.log('Banner animation system initialized');
+    
+    // Initialize large heading animation
+    initLargeHeadingAnimation();
 });
+
+// Large Heading Animation on Scroll
+function initLargeHeadingAnimation() {
+    const largeHeading = document.querySelector('.large-heading');
+    
+    if (!largeHeading) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add animation class when element enters viewport
+                entry.target.classList.add('animate-in');
+                // Disconnect observer after animation is triggered
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.3, // Trigger when 30% of the element is visible
+        rootMargin: '0px 0px -50px 0px' // Trigger slightly before element is fully visible
+    });
+    
+    observer.observe(largeHeading);
+}
