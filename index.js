@@ -852,3 +852,145 @@ function initLargeHeadingAnimation() {
     
     observer.observe(largeHeading);
 }
+
+
+
+   // Testimonial data for each client
+   const testimonialData = [
+    {
+        logo: "assets/testimonials-logo.png",
+        content: {
+            paragraph1: "Working with this team transformed our digital presence completely. Their innovative approach and attention to detail exceeded all expectations.",
+            paragraph2: "The results speak for themselves - our engagement rates increased by 300% and our brand recognition has never been stronger."
+        }
+    },
+    {
+        logo: "assets/visaruka.png",
+        content: {
+            paragraph1: "Exceptional creativity meets professional execution. This collaboration brought our vision to life in ways we never imagined possible.",
+            paragraph2: "From concept to delivery, every step was handled with precision and artistic flair that truly set our brand apart."
+        }
+    },
+    {
+        logo: "assets/testimonials-logo.png",
+        content: {
+            paragraph1: "As a digital designer and art director I help companies and organisations around the world connect with their audience and grow their business.",
+            paragraph2: "Projects can be done directly with clients or in a supporting role for agencies and studios from around the world."
+        }
+    },
+    {
+        logo: "assets/visaruka.png",
+        content: {
+            paragraph1: "The strategic thinking and creative execution delivered results that exceeded our ambitious goals by every measure.",
+            paragraph2: "Our new brand identity has opened doors we never knew existed and positioned us as industry leaders."
+        }
+    },
+    {
+        logo: "assets/testimonials-logo.png",
+        content: {
+            paragraph1: "Outstanding professionalism combined with cutting-edge design thinking. This partnership elevated our entire market position.",
+            paragraph2: "The impact on our business has been transformational, with client satisfaction and retention reaching new heights."
+        }
+    }
+];
+
+// Get elements
+const avatarItems = document.querySelectorAll('.avatar-item');
+const textElement = document.getElementById('testimonialText');
+const logoElement = document.getElementById('testimonialsLogo');
+
+// Function to update testimonial content
+function updateTestimonial(clientIndex) {
+    const data = testimonialData[clientIndex];
+    
+    // Add changing class for smooth transition
+    textElement.classList.add('changing');
+    
+    setTimeout(() => {
+        // Update logo
+        logoElement.src = data.logo;
+
+        
+        // Update text content
+        textElement.innerHTML = `
+            <p>${data.content.paragraph1}</p>
+            <p>${data.content.paragraph2}</p>
+        `;
+        
+        // Remove changing class
+        textElement.classList.remove('changing');
+    }, 150);
+}
+
+// Add click event listeners to avatar items
+avatarItems.forEach((item, index) => {
+    item.addEventListener('click', () => {
+        // Remove active class from all items
+        avatarItems.forEach(avatar => avatar.classList.remove('active'));
+        
+        // Add active class to clicked item
+        item.classList.add('active');
+        
+        // Update testimonial content
+        const clientIndex = parseInt(item.getAttribute('data-client'));
+        updateTestimonial(clientIndex);
+    });
+});
+
+// Auto-rotate testimonials every 5 seconds (optional)
+let currentIndex = 2;
+setInterval(() => {
+    currentIndex = (currentIndex + 1) % testimonialData.length;
+    
+    // Remove active class from all items
+    avatarItems.forEach(avatar => avatar.classList.remove('active'));
+    
+    // Add active class to current item
+    avatarItems[currentIndex].classList.add('active');
+    
+    // Update testimonial content
+    updateTestimonial(currentIndex);
+}, 15000);
+
+
+function initParallaxEffects() {
+    const experienceWrapper = document.querySelector('.experience-wrapper');
+    const experienceTags = document.querySelectorAll('.experience-tag');
+    
+    function handleScroll() {
+        const rect = experienceWrapper.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const wrapperHeight = experienceWrapper.offsetHeight;
+    
+        // Calculate scroll progress (0 → 1)
+        const scrollProgress = Math.max(0, Math.min(1,
+            (windowHeight - rect.top) / (windowHeight + wrapperHeight)
+        ));
+    
+        if (scrollProgress > 0 && scrollProgress < 1) {
+            experienceTags.forEach((tag, index) => {
+                const speed = (index + 1) * 0.3; // different speeds
+                const translateY = scrollProgress * 200 * speed; 
+                const opacity = Math.max(0.3, 1 - scrollProgress * 0.7);
+    
+                tag.style.transform = `translateY(${translateY*2}px)`;
+                tag.style.opacity = opacity;
+            });
+        }
+    }
+    
+    
+    // Throttled scroll listener for smooth 60fps
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (!scrollTimeout) {
+            scrollTimeout = setTimeout(() => {
+                handleScroll();
+                scrollTimeout = null;
+            }, 16);
+        }
+    });
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initParallaxEffects);

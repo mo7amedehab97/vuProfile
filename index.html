@@ -21,8 +21,252 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
+<style>
+    /* Container for the entire experience section */
+    .experience-wrapper {
+        position: relative;
+        height: 700vh; /* Total scroll height */
+    }
 
+    /* Sticky container */
+    .experience-container {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    /* Main experience section */
+    .experience-section {
+        width: 100vw;
+        height: 100vh;
+        background: #100E0E;
+        border-radius: 32px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: border-radius 0.2s, width 0.2s, height 0.2s;
+    }
+
+    /* Title styling - centered */
+    .experience-title {
+        width: 100%;
+        font-family: 'Alias', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 100px;
+        line-height: 100%;
+        text-align: center;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        color: #F4F0EC;
+        margin: 0;
+        position: relative;
+        z-index: 10;
+        transition: font-size 0.2s;
+    }
+
+    /* Experience tags - background elements */
+    .experience-tags {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* Individual tag styling */
+    .experience-tag {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 32px 32px 22px;
+        gap: 10px;
+        background: rgba(207, 218, 91, 0.05);
+        border: 1px solid rgba(207, 218, 91, 0.1);
+        border-radius: 100px;
+        font-family: 'Alias', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 42px;
+        line-height: 100%;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        font-feature-settings: 'salt' on;
+        color: #CFDA5B;
+        white-space: nowrap;
+        transition: font-size 0.2s, padding 0.2s;
+    }
+
+    /* Initial positions for tags - spaced to avoid overlap */
+    .experience-tag[data-position="1"] {
+        top: 10%;
+        left: 8%;
+    }
+
+    .experience-tag[data-position="2"] {
+        top: 25%;
+        right: 8%;
+    }
+
+    .experience-tag[data-position="3"] {
+        top: 50%;
+        left: 12%;
+    }
+
+    .experience-tag[data-position="4"] {
+        top: 65%;
+        right: 12%;
+    }
+
+    .experience-tag[data-position="5"] {
+        top: 60%;
+        left: 35%;
+    }
+
+    /* Responsive design */
+    @media (max-width: 1200px) {
+        .experience-title {
+            font-size: 70px;
+        }
+        .experience-section {
+            border-radius: 24px;
+        }
+        .experience-tag {
+            font-size: 32px;
+            padding: 24px 24px 16px;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .experience-section {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 20px;
+        }
+        .experience-title {
+            font-size: 48px;
+        }
+        .experience-tag {
+            font-size: 24px;
+            padding: 16px 18px 10px;
+        }
+        .experience-tag[data-position="1"] {
+            top: 8%;
+            left: 4%;
+        }
+        .experience-tag[data-position="2"] {
+            top: 22%;
+            right: 4%;
+        }
+        .experience-tag[data-position="3"] {
+            top: 48%;
+            left: 8%;
+        }
+        .experience-tag[data-position="4"] {
+            top: 62%;
+            right: 8%;
+        }
+        .experience-tag[data-position="5"] {
+            top: 58%;
+            left: 20%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .experience-wrapper {
+            height: 300vh;
+        }
+        .experience-section {
+            width: 99vw;
+            height: 60vh;
+            border-radius: 14px;
+        }
+        .experience-title {
+            font-size: 32px;
+        }
+        .experience-tag {
+            font-size: 16px;
+            padding: 10px 12px 7px;
+        }
+        .experience-tag[data-position="1"] {
+            top: 6%;
+            left: 2%;
+        }
+        .experience-tag[data-position="2"] {
+            top: 18%;
+            right: 2%;
+        }
+        .experience-tag[data-position="3"] {
+            top: 44%;
+            left: 4%;
+        }
+        .experience-tag[data-position="4"] {
+            top: 58%;
+            right: 4%;
+        }
+        .experience-tag[data-position="5"] {
+            top: 54%;
+            left: 10%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .experience-section {
+            width: 100vw;
+            height: 48vh;
+            border-radius: 8px;
+        }
+        .experience-title {
+            font-size: 20px;
+        }
+        .experience-tag {
+            font-size: 11px;
+            padding: 6px 8px 4px;
+        }
+        .experience-tag[data-position="1"] {
+            top: 4%;
+            left: 1%;
+        }
+        .experience-tag[data-position="2"] {
+            top: 12%;
+            right: 1%;
+        }
+        .experience-tag[data-position="3"] {
+            top: 38%;
+            left: 2%;
+        }
+        .experience-tag[data-position="4"] {
+            top: 50%;
+            right: 2%;
+        }
+        .experience-tag[data-position="5"] {
+            top: 46%;
+            left: 4%;
+        }
+    }
+
+    /* Content before and after for demo */
+    .demo-content {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: #ffffff;
+        background: #1a1a1a;
+    }
+</style>
 <body>
+
     <!-- Header Section -->
     <header class="header">
         <nav class="navbar">
@@ -39,10 +283,9 @@
                 <img src="assets/hand.png" alt="Available" class="mobile-availability">
             </div>
         </nav>
-
-
     </header>
 
+    <!-- Banner Section -->
     <section class="banner-section">
         <div class="banner-container" data-aos="fade-up">
             <div class="banner-image">
@@ -60,13 +303,11 @@
                 </div>
                 <div class="item">
                     <img src="assets/jobsucsses.png" alt="VU Logo">
-
                 </div>
             </div>
         </div>
-
-
     </section>
+
     <!-- About Section -->
     <section class="about-container">
         <div>
@@ -84,14 +325,10 @@
             <div>
                 <img src="assets/circle.svg" class="circle" alt="VU Logo">
                 <img src="assets/1.jpg" class="bg" alt="VU Logo">
-
-
                 <div class="about-container-stats-item">
                     <h2>+8</h2>
                     <p>Experience</p>
                 </div>
-
-
             </div>
             <div>
                 <img src="assets/circle.svg" class="circle" alt="VU Logo">
@@ -181,14 +418,7 @@
                     <h3 class="project-name">PROJECT NAME</h3>
                 </div>
                 <div class="project-image">
-
-                    <!-- <div class="project-overlay">
-                        <div class="project-arrow">
-                            <img src="assets/arrow.png" alt="View Project">
-                        </div>
-                    </div> -->
                 </div>
-
                 <div class="project-tags">
                     <span class="tag">Design direction</span>
                     <span class="tag">UX UI</span>
@@ -200,21 +430,13 @@
                     <h3 class="project-name">PROJECT NAME</h3>
                 </div>
                 <div class="project-image">
-
-                    <!-- <div class="project-overlay">
-                        <div class="project-arrow">
-                            <img src="assets/arrow.png" alt="View Project">
-                        </div>
-                    </div> -->
                 </div>
-
                 <div class="project-tags">
                     <span class="tag">Design direction</span>
                     <span class="tag">UX UI</span>
                 </div>
             </div>
         </div>
-
         <!-- New Section 2 - Large Heading with Description -->
         <section class="large-heading-section" data-aos="fade-up">
             <div class="large-heading-container">
@@ -226,6 +448,7 @@
         </section>
     </section>
 
+    <div class="spacer"></div>
     <!-- Full Screen Carousel Section -->
     <div class="relative mt-20">
         <div class="sticky top-0 h-screen flex flex-col items-center">
@@ -233,7 +456,7 @@
                 <div class="carousel-background"
                     style="background: linear-gradient(270deg, rgba(43, 43, 43, 0) 50%, rgba(43, 43, 43, 0.8) 100%), url('assets/slider2.jpg') center/cover no-repeat;">
                 </div>
-                <div class="carousel-content" data-aos="fade-up"  data-aos-once="false">
+                <div class="carousel-content" data-aos="fade-up">
                     <div class="carousel-content-inner">
                         <div class="carousel-logo">
                             <img src="assets/avahle.png" alt="Avahle Logo">
@@ -257,13 +480,12 @@
                 </div>
             </div>
         </div>
-        <div
-            class="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-indigo-800 to-purple-800 text-white">
+        <div class="sticky top-0 h-screen flex flex-col items-center justify-center">
             <div>
                 <div class="carousel-background"
                     style="background: linear-gradient(270deg, rgba(43, 43, 43, 0) 50%, rgba(43, 43, 43, 0.8) 100%), url('assets/slider1.jpg') center/cover no-repeat;">
                 </div>
-                <div class="carousel-content" data-aos="fade-up"  data-aos-delay="100"  data-aos-once="false">
+                <div class="carousel-content" data-aos="fade-up">
                     <div class="carousel-content-inner">
                         <div class="carousel-logo">
                             <img src="assets/avahle.png" alt="Avahle Logo">
@@ -288,6 +510,7 @@
             </div>
         </div>
     </div>
+    <div class="spacer"></div>
 
     <!-- Portfolio Gallery Section -->
     <section>
@@ -326,35 +549,85 @@
         </div>
 
     </section>
+    <div class="spacer"></div>
 
-
-
-    <!-- Experience Section -->
-    <section class="experience-section" data-aos="fade-up">
+    <!-- Experience  carousel Section -->
+       <!-- Experience Carousel Section -->
+    <div class="experience-wrapper">
         <div class="experience-container">
-            <div class="experience-content">
+            <div class="experience-section">
                 <h2 class="experience-title">FIELDS OF EXPERTISE</h2>
-                <p class="experience-description">
-                    My work seamlessly combines aesthetic appeal with exceptional user experience and performance,
-                    empowering brands in e-commerce, SaaS, beauty, product design, and EdTech.
-                </p>
-            </div>
-            <div class="experience-tags" id="experience-tags-container">
-                <div class="experience-tags-row">
-                    <span class="experience-tag">E-COMMERCE</span>
-                    <span class="experience-tag">PRODUCT DESIGNS</span>
+                <div class="experience-tags">
+                    <span class="experience-tag" data-position="1">E-COMMERCE</span>
+                    <span class="experience-tag" data-position="2">PRODUCT DESIGNS</span>
+                    <span class="experience-tag" data-position="3">SAAS</span>
+                    <span class="experience-tag" data-position="4">BEAUTY</span>
+                    <span class="experience-tag" data-position="5">EDTECH</span>
                 </div>
-                <div class="experience-tags-row">
-                    <span class="experience-tag">SAAS</span>
-                    <span class="experience-tag">BEAUTY</span>
-                    <span class="experience-tag">EDTECH</span>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="relative mt-20">
+        <div class="sticky top-0 h-screen flex flex-col items-center">
+            <section class="experience-section" data-aos="fade-up">
+                <h2 class="experience-title">FIELDS OF EXPERTISE</h2>
+            </section>
+        </div>
+        <div class="sticky top-0 h-screen flex flex-col items-center justify-center">
+            <div class="experience-tags" id="experience-tags-container">
+                <span class="experience-tag" data-position="1">E-COMMERCE</span>
+                <span class="experience-tag" data-position="2">PRODUCT DESIGNS</span>
+                <span class="experience-tag" data-position="3">SAAS</span>
+                <span class="experience-tag" data-position="4">BEAUTY</span>
+                <span class="experience-tag" data-position="5">EDTECH</span>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Testimonials/Clients Section -->
+    <section class="testimonials-section">
+        <div class="testimonials-container">
+            <div class="testimonials-content">
+                <div class="testimonials-logo">
+                    <div class="logo-placeholder" id="companyLogo">
+                        <img src="assets/testimonials-logo.png" alt="Client Avatar" id="testimonialsLogo">
+                    </div>
+                </div>
+                <div class="testimonials-text" id="testimonialText">
+                    <p>As a digital designer and art director I help companies and organisations around the world connect with their audience and grow their business.</p>
+                    <p>Projects can be done directly with clients or in a supporting role for agencies and studios from around the world.</p>
+                </div>
+                <div class="client-avatars">
+                    <div class="avatar-item" data-client="0">
+                        <div class="avatar-placeholder">
+                            <img src="assets/1.jpg" alt="Client Avatar">
+                        </div>
+                    </div>
+                    <div class="avatar-item" data-client="1">
+                        <div class="avatar-placeholder">
+                            <img src="assets/2.jpg" alt="Client Avatar">
+                        </div>
+                    </div>
+                    <div class="avatar-item active" data-client="2">
+                        <div class="avatar-placeholder">
+                            <img src="assets/3.jpg" alt="Client Avatar">
+                        </div>
+                    </div>
+                    <div class="avatar-item" data-client="3">
+                        <div class="avatar-placeholder">
+                            <img src="assets/4.jpg" alt="Client Avatar">
+                        </div>
+                    </div>
+                    <div class="avatar-item" data-client="4">
+                        <div class="avatar-placeholder">
+                            <img src="assets/5.jpg" alt="Client Avatar">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Testimonials/Clients Section -->
-    <section class="testimonials-section" data-aos="fade-up">
+    <!-- <section class="testimonials-section" data-aos="fade-up">
         <div class="testimonials-container">
             <div class="testimonials-content">
                 <div class="testimonials-logo">
@@ -363,7 +636,7 @@
 
                     </div>
                 </div>
-                <div class="testimonials-text">
+                <div class="testimonials-text" data-aos="fade-up">
                     <p>As a digital designer and art director I help companies and organisations around the world
                         connect with their audience and grow their business.</p>
                     <p>Projects can be done directly with clients or in a supporting role for agencies and studios from
@@ -398,7 +671,8 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
+
     <!-- Speak with Me Section -->
     <section class="speak-with-me-section" data-aos="fade-up">
         <div class="speak-container">
@@ -472,32 +746,29 @@
     <!-- Footer Section -->
     <footer class="footer" data-aos="fade-up">
         <div class="footer-container">
-            <div class="footer-content" >
-                <div class="footer-left" >
+            <div class="footer-content">
+                <div class="footer-left">
                     <div class="footer-tagline">
                         <h2>YOUR NEXT BIG IDEA<br>STARTS HERE.</h2>
                         <p class="footer-cta">LET'S MAKE IT REAL!</p>
                     </div>
                 </div>
 
-                <div class="footer-right" >
+                <div class="footer-right">
                     <div class="footer-links">
                         <a href="#linkedin" class="footer-link">LINKEDIN</a>
                         <a href="#upwork" class="footer-link">UPWORK</a>
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom" >
+            <div class="footer-bottom">
                 <img src="assets/footerLogo.svg" alt="Footer Brand">
             </div>
         </div>
     </footer>
 
-
-
     <!-- AOS Animation Library JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
     <!-- Custom JavaScript -->
     <script src="index.js"></script>
 </body>
