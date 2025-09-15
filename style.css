@@ -1,7 +1,7 @@
 /* ===========================
    Font Face Declarations
    =========================== */
-@font-face {
+   @font-face {
     font-family: 'Alias';
     src: url('assets/fonts/fonts/Alias/Alias-Regular.otf') format('opentype');
     font-weight: 400;
@@ -409,6 +409,8 @@ body {
 /* Banner Container Enhanced Animations */
 .banner-section {
     background-color: #100E0E;
+    border-end-start-radius: 32px;
+    border-end-end-radius: 32px;
 }
 
 .banner-container {
@@ -984,6 +986,7 @@ border-radius: 50%;
     .about-container h2 span {
         font-size: 36px;
     }
+ 
 }
 
 @media (max-width: 768px) {
@@ -1028,6 +1031,11 @@ border-radius: 50%;
     .about-container-stats div span {
         font-size: 70px;
     }
+    .about-container-stats-item  p{
+        width: 100%;
+        height: 100%;
+        font-size: 24px !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1064,6 +1072,11 @@ border-radius: 50%;
 
     .about-container-stats div span {
         font-size: 65px;
+    }
+    .about-container-stats-item  p{
+        width: 100%;
+        height: 100%;
+        font-size: 18px !important;
     }
 }
 
@@ -1163,13 +1176,13 @@ border-radius: 50%;
 /* Work Section Responsive Design */
 @media (max-width: 1024px) {
     .work-container {
-        margin-top: 60vh;
+        margin-top: 80px;
         padding: 0 60px;
     }
 
     .project-card-container {
         margin-top: 120px;
-        gap: 30px;
+        gap: 70px;
 
     }
 
@@ -1180,14 +1193,14 @@ border-radius: 50%;
 
 @media (max-width: 768px) {
     .work-container {
-        margin-top: 40vh;
+        margin-top: 80px;
         padding: 0 30px;
     }
 
     .project-card-container {
         flex-direction: column;
         margin-top: 80px;
-        gap: 40px;
+        gap: 70px;
     }
 
     .project-card {
@@ -1228,13 +1241,13 @@ border-radius: 50%;
 
 @media (max-width: 480px) {
     .work-container {
-        margin-top: 30vh;
+        margin-top: 80px;
         padding: 0 20px;
     }
 
     .project-card-container {
         margin-top: 60px;
-        gap: 30px;
+        gap: 70px;
     }
 
     .project-card {
@@ -1463,7 +1476,7 @@ border-radius: 50%;
 @media (max-width: 1024px) {
     .expertise-section {
         padding: 80px 0;
-        margin-top: 150px;
+        margin-top: 50vh;
     }
 
     .expertise-container {
@@ -1498,7 +1511,8 @@ border-radius: 50%;
 @media (max-width: 768px) {
     .expertise-section {
         padding: 60px 0;
-        margin-top: 100px;
+        margin-top: 40vh;
+
     }
 
     .expertise-container {
@@ -1513,13 +1527,13 @@ border-radius: 50%;
 
     .expertise-title {
         font-size: 50px;
-        text-align: center;
+        text-align: start;
     }
 
     .expertise-description {
         font-size: 20px;
         max-width: 100%;
-        text-align: center;
+        text-align: start;
     }
 
     .expertise-info {
@@ -1545,7 +1559,8 @@ border-radius: 50%;
 @media (max-width: 480px) {
     .expertise-section {
         padding: 50px 0;
-        margin-top: 80px;
+        margin-top: 30vh;
+
     }
 
     .expertise-container {
@@ -3420,7 +3435,7 @@ border-radius: 50%;
 }
 
 .footer-cta {
-    box-sizing: border-box;
+    
     /* Auto layout */
     display: flex;
     flex-direction: row;
