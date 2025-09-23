@@ -150,17 +150,7 @@ navLinks.forEach(link => {
     });
 });
 
-// Enhanced availability badge interaction
-const availabilityBadge = document.querySelector('.nav-right');
-if (availabilityBadge) {
-    availabilityBadge.addEventListener('mouseenter', () => {
-        availabilityBadge.style.transform = 'translateY(-3px) scale(1.05)';
-    });
-    
-    availabilityBadge.addEventListener('mouseleave', () => {
-        availabilityBadge.style.transform = 'translateY(0) scale(1)';
-    });
-}
+
 
 // Button Click Handlers
 const ctaButton = document.querySelector('.cta-button');
@@ -772,12 +762,10 @@ class BannerAnimations {
         if (this.bannerTitle) {
             this.bannerTitle.addEventListener('mouseenter', () => {
                 this.bannerTitle.style.transform = 'translateY(0px) scale(1.02)';
-                this.bannerTitle.style.textShadow = '0 0 20px rgba(244, 240, 236, 0.5)';
             });
             
             this.bannerTitle.addEventListener('mouseleave', () => {
                 this.bannerTitle.style.transform = 'translateY(0px) scale(1)';
-                this.bannerTitle.style.textShadow = 'none';
             });
         }
     }
@@ -994,3 +982,40 @@ function initParallaxEffects() {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', initParallaxEffects);
+
+
+
+
+
+
+
+
+// GSAP Example
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.from(".title span", {
+  y: -200,         // start above
+  opacity: 0,
+  rotation: () => gsap.utils.random(-30, 30),
+  ease: "bounce.out",
+  stagger: 0.1,
+  scrollTrigger: {
+    trigger: ".work",
+    start: "top center",
+    end: "bottom center",
+    scrub: true
+  }
+});
+
+gsap.from(".tag", {
+  y: -300,
+  rotation: () => gsap.utils.random(-60, 60),
+  opacity: 0,
+  ease: "bounce.out",
+  stagger: 0.15,
+  scrollTrigger: {
+    trigger: ".work",
+    start: "top center",
+    scrub: true
+  }
+});
