@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
         mirror: false,
         offset: 100
     });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
 });
 
 // Mobile Menu Toggle Functionality
@@ -1019,3 +1021,4 @@ gsap.from(".tag", {
     scrub: true
   }
 });
+

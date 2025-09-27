@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OUR WORK - Interactive Design</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #ffffff;
+      overflow-x: hidden;
+      line-height: 1;
+    }
+
+    .spacer {
+      height: 100vh;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    section.work {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      background: #ffffff;
+      padding: 0 40px;
+      margin: 0;
+    }
+
+    .work-container {
+      position: relative;
+      width: 100%;
+      max-width: 1400px;
+      height: 700px;
+    }
+
+    h1.title {
+      font-size: clamp(5rem, 15vw, 20rem);
+      font-weight: 900;
+      color: #1a1a1a;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      white-space: nowrap;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+    }
+
+    h1.title span {
+      display: inline-block;
+      will-change: transform;
+    }
+
+    .tags-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .tag {
+      position: absolute;
+      padding: 16px 28px;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      will-change: transform;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      cursor: default;
+      transition: all 0.3s ease;
+    }
+
+    .tag-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.8rem;
+      color: white;
+      z-index: 9999999;
+    }
+
+    /* Tags positioned above the text */
+    .tag.above-text {
+      z-index: 10;
+    }
+
+    /* Tags positioned below the text */
+    .tag.below-text {
+      z-index: 1;
+    }
+
+    /* Tag 1 - Aboriginal Housing Victoria (top left, above text) */
+    .tag:nth-child(1) {
+      background: linear-gradient(135deg, #c8f7c5, #a8e6a3);
+      color: #1a5d1a;
+      top: 15%;
+      left: 5%;
+    }
+
+    /* Tag 2 - Australia Post (top right, overlapping text) */
+    .tag:nth-child(2) {
+      background: linear-gradient(135deg, #e8d5ff, #d4bbff);
+      color: #4a148c;
+      top: 20%;
+      right: 15%;
+      z-index: 10;
+    }
+
+    /* Tag 3 - Afterpay (right side, overlapping text) */
+    .tag:nth-child(3) {
+      background: linear-gradient(135deg, #ffb366, #ff9933);
+      color: #8b4513;
+      top: 45%;
+      right: 5%;
+      z-index: 10;
+    }
+
+    /* Tag 4 - Sustainable Metal Cloud (bottom left, below text) */
+    .tag:nth-child(4) {
+      background: linear-gradient(135deg, #87ceeb, #6fb8d4);
+      color: #0d4f6b;
+      bottom: 25%;
+      left: 8%;
+    }
+
+    /* Tag 5 - Australian Government (bottom center, below text) */
+    .tag:nth-child(5) {
+      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+      color: #333;
+      bottom: 15%;
+      left: 40%;
+    }
+
+    /* Tag 6 - Innovation Lab (center left, overlapping text) */
+    .tag:nth-child(6) {
+      background: linear-gradient(135deg, #e6e6fa, #d8d8ff);
+      color: #4b0082;
+      top: 35%;
+      left: 12%;
+      transform: rotate(15deg);
+      z-index: 10;
+    }
+
+    .bottom-spacer {
+      height: 100vh;
+      background: #f0f2f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Navigation bar at bottom */
+    .nav-bar {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      padding: 12px 24px;
+      border-radius: 30px;
+      display: flex;
+      gap: 20px;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-item {
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stagger {
+      width: 100%;
+      height: 100vh;
+      background: #383838;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .stagger h1 span {
+      display: inline-block;
+    }
+
+    .stagger h1 {
+      font-size: 10em;
+    }
+    .experience-tags{
+      background: #000;
+      padding: 1vh 2vw;
+
+    }
+
+    /* Individual tag styling */
+    .experience-tag {
+      padding: 32px 32px 22px;
+      gap: 10px;
+      background: rgba(207, 218, 91, 0.05);
+      border: 1px solid rgba(207, 218, 91, 0.1);
+      border-radius: 100px;
+      font-family: 'Alias', sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 42px;
+      line-height: 100%;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      font-feature-settings: 'salt' on;
+      color: #CFDA5B;
+      white-space: nowrap;
+      transition: font-size 0.2s, padding 0.2s;
+    }
+
+  
+  </style>
+</head>
+
+<body>
+  <div class="spacer">
+    <div style="text-align: center;">
+      <h2 style="font-size: 2.5rem; font-weight: 700; color: #333; margin-bottom: 24px;">Previous Section</h2>
+      <p style="font-size: 1.2rem; color: #666; line-height: 1.6; max-width: 800px;">Our clients are entrepreneurs,
+        community changers, makers & corporate brands making progress.</p>
+    </div>
+  </div>
+  <div class="stagger">
+
+
+    <div class="experience-tags">
+      <span class="experience-tag" data-position="1">E-COMMERCE</span>
+      <span class="experience-tag" data-position="2">PRODUCT DESIGNS</span>
+      <span class="experience-tag" data-position="3">SAAS</span>
+      <span class="experience-tag" data-position="4">BEAUTY</span>
+      <span class="experience-tag" data-position="5">EDTECH</span> <span class="experience-tag" data-position="1">E-COMMERCE</span>
+      <span class="experience-tag" data-position="2">PRODUCT DESIGNS</span>
+      <span class="experience-tag" data-position="3">SAAS</span>
+      <span class="experience-tag" data-position="4">BEAUTY</span>
+      <span class="experience-tag" data-position="5">EDTECH</span>
+    </div>
+  </div>
+  <!--  -->
+  </div>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+
+gsap.to(".experience-tag",{
+  Transform:'translateX(-100%)',
+  delay: 1,
+  duration:2 
+})
+
+    gsap.from('.experience-tag', {
+      y: 400,
+      duration: 1.2,
+      opacity: 0,
+      delay: .5,
+      scrollTrigger: {
+        trigger: ".stagger",
+        start: "top 50%",
+        end: "top 60%",
+        markers: true
+
+      }
+    })
+    gsap.to('.experience-tag', {
+      y: 400,
+      duration: 1.2,
+      opacity: 0,
+      delay: .5,
+      stagger: .15,
+      scrollTrigger: {
+        trigger: ".stagger",
+        start: "bottom 50%",
+        end: "bottom 60%",
+        markers: true
+
+        // scrub: 8,
+
+      }
+    })
+    // // Set initial states - letters come from below
+    // gsap.set(".title span", {
+    //   y: 400,
+    //   opacity: 0,
+    //   rotation: () => gsap.utils.random(-20, 20),
+    //   scale: 0.3,
+    // });
+
+    // // Set initial states - tags above text start from above
+    // gsap.set(".tag.above-text", {
+    //   y: -340,
+    //   opacity: 0,
+    //   scale: 0.2
+    // });
+
+    // // Set initial states - tags below text start from below
+    // gsap.set(".tag.below-text", {
+    //   y: -350,
+    //   opacity: 0,
+    //   scale: 0.2
+    // });
+
+    // // Letters animation - smooth rise from bottom, letter by letter
+    // gsap.to(".title span", {
+    //   y: 0,
+    //   opacity: 1,
+    //   rotation: 0,
+    //   scale: 1,
+    //   ease: "power3.out",
+    //   stagger: 0.06,
+    //   scrollTrigger: {
+    //     trigger: ".work",
+    //     start: "bottom 100%",
+    //     end: "top 60%",
+    //     scrub: 8,
+
+    //   }
+    // });
+
+    // // Tags above text - fall down into position
+    // gsap.to(".tag.above-text", {
+    //   y: 0,
+    //   x: 0,
+    //   opacity: 1,
+    //   scale: 1,
+    //   rotation: (index) => {
+    //     const rotations = [-12, 8, -5, 15];
+    //     return rotations[index] || 0;
+    //   },
+    //   ease: "power2.out",
+    //   stagger: {
+    //     amount: 1,
+    //     from: "random"
+    //   },
+    //   scrollTrigger: {
+    //     trigger: ".work",
+    //     start: "top 80%",
+    //     end: "center 30%",
+    //     scrub: 2.5,
+    //   }
+    // });
+
+    // // Tags below text - rise up into position
+    // gsap.to(".tag.below-text", {
+    //   y: 0,
+    //   x: 0,
+    //   opacity: 1,
+    //   scale: 1,
+    //   ease: "power2.out",
+    //   stagger: {
+    //     amount: 0.8,
+    //     from: "random"
+    //   },
+    //   scrollTrigger: {
+    //     trigger: ".work",
+    //     start: "top 100%",
+    //     end: "bottom 50%",
+    //     scrub: 2,
+    //   }
+    // });
+
+
+    // // Additional scroll-responsive movement
+    // ScrollTrigger.create({
+    //   trigger: ".work",
+    //   start: "top bottom",
+    //   end: "bottom top",
+    //   scrub: 1,
+    //   onUpdate: self => {
+    //     const progress = self.progress;
+    //     const direction = self.direction;
+
+    //     gsap.to(".tag.above-text", {
+    //       x: direction * progress * 50,
+    //       duration: 0.3,
+    //       ease: "none"
+    //     });
+
+    //     gsap.to(".tag.below-text", {
+    //       x: -direction * progress * 30,
+    //       duration: 0.3,
+    //       ease: "none"
+    //     });
+    //   }
+    // });
+
+    // // Letter hover effects
+    // document.querySelectorAll('.title span').forEach((span, index) => {
+    //   span.addEventListener('mouseenter', () => {
+    //     gsap.to(span, {
+    //       scale: 1.1,
+    //       y: -20,
+    //       duration: 0.3,
+    //       ease: "back.out(2)"
+    //     });
+    //   });
+
+    //   span.addEventListener('mouseleave', () => {
+    //     gsap.to(span, {
+    //       scale: 1,
+    //       y: 0,
+    //       duration: 0.3,
+    //       ease: "back.out(2)"
+    //     });
+    //   });
+    // });
+  </script>
+</body>
+
+</html>
