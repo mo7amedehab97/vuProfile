@@ -1989,10 +1989,6 @@ body {
         gap: 100px;
     }
 
-    .experience-container {
-        padding: 0px 40px;
-    }
-
     .experience-title {
         font-size: 80px;
         z-index: 20;
@@ -2017,7 +2013,6 @@ body {
 
     .experience-container {
         flex-direction: column;
-        padding: 0px 20px;
     }
 
     .experience-title {
