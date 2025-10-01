@@ -22,152 +22,160 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <style>
-    /* Container for the entire experience section */
-    .experience-wrapper {
-        position: relative;
-        height: 700vh;
-        /* Total scroll height */
+       /* Container for the entire experience section */
+       .experience-wrapper {
+      position: relative;
+      height: 300vh;
     }
 
     /* Sticky container */
     .experience-container {
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
 
     /* Main experience section */
     .experience-section {
-        width: 100vw;
-        height: 100vh;
-        background: #100E0E;
-        border-radius: 32px;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        transition: border-radius 0.2s, width 0.2s, height 0.2s;
+      width: 100vw;
+      height: 100vh;
+      background: #100E0E;
+      border-radius: 32px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: border-radius 0.2s, width 0.2s, height 0.2s;
     }
 
     /* Title styling - centered */
     .experience-title {
-        width: 100%;
-        font-family: 'Alias', sans-serif;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 100px;
-        line-height: 100%;
-        text-align: center;
-        letter-spacing: -0.02em;
-        text-transform: uppercase;
-        color: #F4F0EC;
-        margin: 0;
-        position: relative;
-        z-index: 10;
-        transition: font-size 0.2s;
+      width: 100%;
+      font-family: 'Alias', sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 100px;
+      line-height: 100%;
+      text-align: center;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: #F4F0EC;
+      margin: 0;
+      position: relative;
+      z-index: 10;
+      transition: font-size 0.2s;
+    }
+
+    .experience-title span {
+      display: inline-block;
+      will-change: transform;
     }
 
     /* Experience tags - background elements */
     .experience-tags {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
     }
 
     /* Individual tag styling */
     .experience-tag {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 32px 32px 22px;
-        gap: 10px;
-        background: rgba(207, 218, 91, 0.05);
-        border: 1px solid rgba(207, 218, 91, 0.1);
-        border-radius: 100px;
-        font-family: 'Alias', sans-serif;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 42px;
-        line-height: 100%;
-        letter-spacing: -0.02em;
-        text-transform: uppercase;
-        font-feature-settings: 'salt' on;
-        color: #CFDA5B;
-        white-space: nowrap;
-        transition: font-size 0.2s, padding 0.2s;
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 32px 32px 22px;
+      gap: 10px;
+      background: rgba(207, 218, 91, 0.05);
+      border: 1px solid rgba(207, 218, 91, 0.1);
+      border-radius: 100px;
+      font-family: 'Alias', sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 42px;
+      line-height: 100%;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      font-feature-settings: 'salt' on;
+      color: #CFDA5B;
+      white-space: nowrap;
+      transition: font-size 0.2s, padding 0.2s;
+      pointer-events: auto;
+      cursor: default;
     }
 
-    /* Initial positions for tags - spaced to avoid overlap */
+    /* Initial positions for tags */
     .experience-tag[data-position="1"] {
-        top: 10%;
-        left: 8%;
+      top: 10%;
+      left: 8%;
     }
 
     .experience-tag[data-position="2"] {
-        top: 25%;
-        right: 8%;
+      top: 25%;
+      right: 8%;
     }
 
     .experience-tag[data-position="3"] {
-        top: 50%;
-        left: 12%;
+      top: 50%;
+      left: 12%;
     }
 
     .experience-tag[data-position="4"] {
-        top: 65%;
-        right: 12%;
+      top: 65%;
+      right: 12%;
     }
 
     .experience-tag[data-position="5"] {
-        top: 60%;
-        left: 35%;
+      top: 60%;
+      left: 35%;
     }
 
     /* Responsive design */
     @media (max-width: 768px) {
-        .experience-tag {
-            padding: 32px 32px 22px;
-            font-size: 24px;
-        }
+      .experience-tag {
+        padding: 32px 32px 22px;
+        font-size: 24px;
+      }
 
-        .experience-title {
-            width: 100%;
-            font-size: 48px;
-        }
-        .experience-tag[data-position="1"] {
+      .experience-title {
+        width: 100%;
+        font-size: 48px;
+      }
+
+      .experience-tag[data-position="1"] {
         top: 10%;
         left: 5%;
-    }
+      }
 
-    .experience-tag[data-position="2"] {
+      .experience-tag[data-position="2"] {
         top: 30%;
         right: 8%;
-    }
+      }
 
-    .experience-tag[data-position="3"] {
+      .experience-tag[data-position="3"] {
         top: 45%;
         left: 5%;
-    }
+      }
 
-    .experience-tag[data-position="4"] {
+      .experience-tag[data-position="4"] {
         top: 60%;
         right: 8%;
-    }
+      }
 
-    .experience-tag[data-position="5"] {
+      .experience-tag[data-position="5"] {
         top: 75%;
         left: 5%;
-    }
+      }
     }
 </style>
 
@@ -244,16 +252,16 @@
     </section>
 
     <!-- Fields of Expertise Section -->
-    <section class="expertise-section" data-aos="fade-up">
+    <section class="expertise-section">
         <div class="expertise-container">
             <div class="expertise-content">
-                <h2 class="expertise-title">I work by clear <br>values</h2>
-                <p class="expertise-description">
+                <h2 class="expertise-title" data-aos="fade-up" data-aos-once="false" >I work by clear <br>values</h2>
+                <p class="expertise-description" data-aos="fade-up" data-aos-once="false">
                     Here’s a quick look at how I approach each project from initial idea to final result. Simple,
                     structured, and tailored for impact. </p>
             </div>
             <div class="expertise-info">
-                <div class="expertise-info-item">
+                <div class="expertise-info-item" data-aos="fade-up" data-aos-once="false">
                     <div class="expertise-info-header">
                         <span class="expertise-info-number">01</span>
                         <h3 class="expertise-info-title">Discovery</h3>
@@ -263,7 +271,7 @@
                             invidunt ut labore et dolore</p>
                     </div>
                 </div>
-                <div class="expertise-info-item">
+                <div class="expertise-info-item" data-aos="fade-up" data-aos-once="false">
                     <div class="expertise-info-header">
                         <span class="expertise-info-number">02</span>
                         <h3 class="expertise-info-title">Wireframe</h3>
@@ -273,7 +281,7 @@
                             invidunt ut labore et dolore</p>
                     </div>
                 </div>
-                <div class="expertise-info-item">
+                <div class="expertise-info-item" data-aos="fade-up" data-aos-once="false">
                     <div class="expertise-info-header">
                         <span class="expertise-info-number">03</span>
                         <h3 class="expertise-info-title">Mood Board</h3>
@@ -283,7 +291,7 @@
                             invidunt ut labore et dolore</p>
                     </div>
                 </div>
-                <div class="expertise-info-item">
+                <div class="expertise-info-item" data-aos="fade-up" data-aos-once="false">
                     <div class="expertise-info-header">
                         <span class="expertise-info-number">04</span>
                         <h3 class="expertise-info-title">Design</h3>
@@ -302,10 +310,10 @@
         <!-- New Section 1 - Centered Text -->
         <section>
             <div class="centered-text-container">
-                <div class="centered-text-content" data-aos="fade-up">
-                    <p class="centered-text">As a digital designer and art director I help companies and organisations
+                <div class="centered-text-content" >
+                    <p class="centered-text" data-aos="fade-up" data-aos-once="false" data-aos-delay="50">As a digital designer and art director I help companies and organisations
                         around the world connect with their audience and grow their business.</p>
-                    <p class="centered-text second-text">
+                    <p class="centered-text second-text" data-aos="fade-up" data-aos-once="false" data-aos-delay="100">
                         Projects can be done directly with clients or in a supporting role for agencies and studios from
                         around the world. 
                     </p>
@@ -339,7 +347,7 @@
             </div>
         </div>
         <!-- New Section 2 - Large Heading with Description -->
-        <section class="large-heading-section" data-aos="fade-up">
+        <section class="large-heading-section" data-aos="fade-up" data-aos-once="false" >>
             <div class="large-heading-container">
                 <h2 class="large-heading">Design that delivers more than style, It drives results</h2>
                 <p class="large-heading-description">With over 8 years of experience, I create designs that enable
@@ -415,8 +423,8 @@
 
     <!-- Portfolio Gallery Section -->
     <section>
-        <div class="gallery-section" data-aos="fade-up" data-aos-once="false">
-            <div class="gallery-title-container">
+        <div class="gallery-section" >
+            <div class="gallery-title-container" data-aos="fade-up" data-aos-once="false">
                 <h2 class="gallery-title">My Greatest Inspiration</h2>
             </div>
 
@@ -451,13 +459,18 @@
 
     </section>
     <div class="spacer"></div>
-
     <!-- Experience  carousel Section -->
     <!-- Experience Carousel Section -->
     <div class="experience-wrapper">
         <div class="experience-container">
             <div class="experience-section">
-                <h2 class="experience-title">FIELDS OF EXPERTISE</h2>
+                <h2 class="experience-title">
+                    <span>F</span><span>I</span><span>E</span><span>L</span><span>D</span><span>S</span>
+                    <span> </span>
+                    <span>O</span><span>F</span>
+                    <span> </span>
+                    <span>E</span><span>X</span><span>P</span><span>E</span><span>R</span><span>T</span><span>I</span><span>S</span><span>E</span>
+                </h2>
                 <div class="experience-tags">
                     <span class="experience-tag" data-position="1">E-COMMERCE</span>
                     <span class="experience-tag" data-position="2">PRODUCT DESIGNS</span>
@@ -676,6 +689,136 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- Custom JavaScript -->
     <script src="index.js"></script>
-</body>
+ <!-- GSAP Library -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
+ <script>
+   gsap.registerPlugin(ScrollTrigger);
+
+   // Set initial hidden state for letters
+   gsap.set(".experience-title span", {
+     y: 100,
+     opacity: 0,
+     scale: 0.5,
+     rotation: () => gsap.utils.random(-30, 30)
+   });
+
+   // Set initial hidden state for tags
+   gsap.set(".experience-tag", {
+     y: 150,
+     opacity: 0,
+     scale: 0.3,
+     rotation: () => gsap.utils.random(-45, 45)
+   });
+
+   // Letters appear with stagger as you scroll down
+   gsap.to(".experience-title span", {
+     y: 0,
+     opacity: 1,
+     scale: 1,
+     rotation: 0,
+     stagger: 0.05,
+     ease: "none",
+     scrollTrigger: {
+       trigger: ".experience-wrapper",
+       start: "top 70%",
+       end: "40% center",
+       scrub: 1.5,
+     }
+   });
+
+   // Tags appear with stagger as you scroll down
+   gsap.to(".experience-tag", {
+     y: 0,
+     opacity: 1,
+     scale: 1,
+     rotation: (index) => {
+       const rotations = [-12, 8, -5, 10, -8];
+       return rotations[index] || 0;
+     },
+     stagger: 0.08,
+     ease: "none",
+     scrollTrigger: {
+       trigger: ".experience-wrapper",
+       start: "top 65%",
+       end: "35% center",
+       scrub: 1.5,
+     }
+   });
+
+   // Floating animation when in view
+   ScrollTrigger.create({
+     trigger: ".experience-wrapper",
+     start: "40% center",
+     end: "60% center",
+     onEnter: () => {
+       document.querySelectorAll('.experience-tag').forEach((tag, i) => {
+         gsap.to(tag, {
+           y: "+=10",
+           duration: 5 + i * 0.5,
+           ease: "sine.inOut",
+           repeat: -1,
+           yoyo: true
+         });
+       });
+     },
+     onLeave: () => gsap.killTweensOf(".experience-tag"),
+     onEnterBack: () => {
+       document.querySelectorAll('.experience-tag').forEach((tag, i) => {
+         gsap.to(tag, {
+           y: "+=10",
+           duration: 5 + i * 0.5,
+           ease: "sine.inOut",
+           repeat: -1,
+           yoyo: true
+         });
+       });
+     },
+     onLeaveBack: () => gsap.killTweensOf(".experience-tag")
+   });
+
+   // Letter hover effects
+   document.querySelectorAll('.experience-title span').forEach(span => {
+     span.style.cursor = 'default';
+     
+     span.addEventListener('mouseenter', () => {
+       gsap.to(span, {
+         scale: 1.15,
+         y: -12,
+         duration: 0.4,
+         ease: "back.out(2)"
+       });
+     });
+     
+     span.addEventListener('mouseleave', () => {
+       gsap.to(span, {
+         scale: 1,
+         y: 0,
+         duration: 0.4,
+         ease: "back.out(2)"
+       });
+     });
+   });
+
+   // Tag hover effects
+   document.querySelectorAll('.experience-tag').forEach(tag => {
+     tag.addEventListener('mouseenter', () => {
+       gsap.to(tag, {
+         scale: 1.05,
+         duration: 0.3,
+         ease: "back.out(2)"
+       });
+     });
+     
+     tag.addEventListener('mouseleave', () => {
+       gsap.to(tag, {
+         scale: 1,
+         duration: 0.3,
+         ease: "back.out(2)"
+       });
+     });
+   });
+ </script>
+</body>
 </html>
